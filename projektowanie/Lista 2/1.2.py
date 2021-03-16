@@ -4,25 +4,45 @@ import networkx.drawing as nxd
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+from itertools import count
+
 from numpy.random import uniform
 import random
 from time import sleep
-random.seed(9)
+from matplotlib.animation import FuncAnimation
+random.seed(11)
 node_numb = 10 + 1
 G = nx.Graph()
 
 colors = nx.get_edge_attributes(G, 'color').values()
+fig, ax = plt.subplots(figsize=(6,4))
 
-x = [(random.randint(0, 100), random.randint(0, 100)) for x in range(node_numb)]
-v = {}
-for i in range(1, node_numb):
-    v[i] = list(x[i])
-    G.add_node(i)
-    sleep(1)
+
+def ani(p):
+    x = [(random.randint(0, 100), random.randint(0, 100)) for x in range(node_numb)]
+    v = {}
+    for i in range(1, node_numb):
+        v[i] = list(x[i])
+        G.add_node(i)
+        #sleep(1)
     nx.draw(G, v, edge_color=colors)
     nx.draw_networkx_labels(G, v)
-    plt.show()
-# TODO dodać połączenie wszystkich node z node1
+
+v = {}
+i = 1
+def anim(num):
+    global i
+    x = (random.randint(0, 100), random.randint(0, 100))
+    v[i] = list(x)
+    G.add_node(i)
+
+    i+=1
+    nx.draw(G, v, edge_color=colors)
+    nx.draw_networkx_labels(G, v)
+
+ani = FuncAnimation(fig, anim, frames = 10,  interval=1000)
+plt.show()
+'''# TODO dodać połączenie wszystkich node z node1
 # TODO dla każdego noda dodać najkrotsze połączenie
 for i in range(2, node_numb):
     G.add_edge(1, i, color = 'black')
@@ -46,3 +66,4 @@ colors = nx.get_edge_attributes(G, 'color').values()
 nx.draw(G, v, edge_color=colors)
 nx.draw_networkx_labels(G, v)
 plt.show()
+'''
