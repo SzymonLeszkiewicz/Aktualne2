@@ -5,49 +5,67 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 from itertools import count
-
 from numpy.random import uniform
 import random
-from time import sleep
 from matplotlib.animation import FuncAnimation
-random.seed(11)
-node_numb = 10 + 1
+
+random.seed(7)
+node_numb = 10
 G = nx.Graph()
 
 colors = nx.get_edge_attributes(G, 'color').values()
-fig, ax = plt.subplots(figsize=(6,4))
+fig, ax = plt.subplots(figsize=(6, 4))
 
 
 def ani(p):
     x = [(random.randint(0, 100), random.randint(0, 100)) for x in range(node_numb)]
     v = {}
-    for i in range(1, node_numb):
+    for i in range(1, node_numb+1):
         v[i] = list(x[i])
         G.add_node(i)
-        #sleep(1)
     nx.draw(G, v, edge_color=colors)
     nx.draw_networkx_labels(G, v)
 
 v = {}
 i = 1
-def anim(num):
+
+def nodes(num):
     global i
     x = (random.randint(0, 100), random.randint(0, 100))
+    global v
     v[i] = list(x)
     G.add_node(i)
-
-    i+=1
+    i += 1
     nx.draw(G, v, edge_color=colors)
     nx.draw_networkx_labels(G, v)
 
-ani = FuncAnimation(fig, anim, frames = 10,  interval=1000)
+j = 2
+def edges1(num):
+    global j
+    global v
+    colors = nx.get_edge_attributes(G, 'color').values()
+
+    G.add_edge(1, j, color = 'black')
+    nx.draw(G, v, edge_color=colors)
+
+    nx.draw_networkx_labels(G, v)
+    j += 1
+    print("halo")
+
+    nx.draw_networkx_labels(G, v)
+
+ani = FuncAnimation(fig, nodes, frames=node_numb-1, interval=50, repeat = False)
+
 plt.show()
-'''# TODO dodać połączenie wszystkich node z node1
-# TODO dla każdego noda dodać najkrotsze połączenie
-for i in range(2, node_numb):
+fig, ax = plt.subplots(figsize=(6, 4))
+
+an = FuncAnimation(fig, edges1, frames=node_numb-2, interval=50, repeat = False)
+plt.show()
+
+'''for i in range(2, node_numb+1):
     G.add_edge(1, i, color = 'black')
 
-for i in range(2, node_numb ):
+for i in range(2, node_numb + 1 ):
     min_dis = 99999
     min_id = -1
 
@@ -62,7 +80,6 @@ for i in range(2, node_numb ):
     #print("wynik: ", i, "   ", min_id)
     G.add_edge(i, min_id, color='r')
 
-colors = nx.get_edge_attributes(G, 'color').values()
 nx.draw(G, v, edge_color=colors)
 nx.draw_networkx_labels(G, v)
 plt.show()
