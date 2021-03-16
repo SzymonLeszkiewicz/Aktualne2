@@ -21,7 +21,6 @@ for v1 in VV:
         if (v1, v2) in WW:
             label = str(np.sqrt((Vx[v1] - Vx[v2]) ** 2 + (Vy[v1] - Vy[v2]) ** 2))
             g.add_weighted_edges_from([(v1, v2, label)])
-
 nx.draw(g, gpos, with_labels=True, node_color='yellow')
 labels = nx.get_edge_attributes(g, 'weight')
 nx.draw_networkx_edge_labels(g, gpos, edge_labels=labels)
