@@ -6,21 +6,22 @@ import numpy as np
 import math
 from numpy.random import uniform
 import random
-
-
-def los_wierz(node_numb):
-    x = [(random.randint(0, 100), random.randint(0, 100)) for x in range(node_numb)]
-    v = {}
-    for i in range(1, node_numb):
-        v[i] = list(x[i])
-    G.add_nodes_from([i for i in range(1, node_numb)])
-    return v
-
-
+from time import sleep
+random.seed(9)
 node_numb = 10 + 1
 G = nx.Graph()
-v = los_wierz(node_numb)
-G.add_nodes_from([i for i in range(1, node_numb)])
+
+colors = nx.get_edge_attributes(G, 'color').values()
+
+x = [(random.randint(0, 100), random.randint(0, 100)) for x in range(node_numb)]
+v = {}
+for i in range(1, node_numb):
+    v[i] = list(x[i])
+    G.add_node(i)
+    sleep(1)
+    nx.draw(G, v, edge_color=colors)
+    nx.draw_networkx_labels(G, v)
+    plt.show()
 # TODO dodać połączenie wszystkich node z node1
 # TODO dla każdego noda dodać najkrotsze połączenie
 for i in range(2, node_numb):
