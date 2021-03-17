@@ -38,7 +38,6 @@ def edges1(num):
     G.add_edge(1, j, edge_color = 'r')
     nx.draw(G, v,)
     nx.draw_networkx_labels(G, v)
-
     #for i in range(2, node_numb + 1):
     min_dis = 99999
     min_id = -1
@@ -57,9 +56,9 @@ def edges1(num):
     nx.draw(G, v)
     j += 1
 
-ani = FuncAnimation(fig, nodes, frames=node_numb-1, interval=250, repeat = False)
+ani = FuncAnimation(fig, nodes, frames=node_numb-1, interval=500, repeat = False)
 plt.show()
 
 fig, ax = plt.subplots(figsize=(6, 4))
-an = FuncAnimation(fig, edges1, frames=node_numb-2, interval=250, repeat = False)
+an = FuncAnimation(fig, edges1, frames=node_numb-2, interval=500, repeat = False)
 plt.show()
