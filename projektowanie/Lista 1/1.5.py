@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from numpy.random import uniform
 import random
 G = nx.Graph()
-node_num = 10
+node_num = 40
 
 
 x = [(random.randint(0,10), random.randint(0,10))]
