@@ -1,26 +1,8 @@
-'''
-zlotowki = [1, 2, 5, 10, 20, 50, 100, 200, 500]
-grosze = [1, 2, 5, 10, 20, 50]
-a = input("podaj wartość reszty do wydania: \nnp. 2.57")
-a = a.split('.')
-a = list(map(int, a))
-i=len(zlotowki)-1
-print(a)
-reszta = []
-while a[0] != 0:
-    if a[0] > zlotowki[i]:
-        a[0] -= zlotowki[i]
-        reszta.append(zlotowki[i])
-    else:
-        i-=1
-    print(reszta)'''
-
-
 class Reszta:
 
     def wczytywanie_kwoty(self):
 
-        kwota = input('Reszta do wydania: \nnp. 2.56 lub 2.0').split('.')
+        kwota = input('Reszta do wydania: \nwpisz np. 2.56 lub 2.0').split('.')
         x = int(kwota[0])
         y = int(kwota[1])
         self.x = x
@@ -34,6 +16,7 @@ class Reszta:
         reszta_gr = [0] * len(gr)
         a = self.x
         b = self.y
+
         w1 = a
         w2 = b
         for id, c in enumerate(zl):
@@ -45,8 +28,8 @@ class Reszta:
         for kwota, c in zip(reszta_zl, zl):
             if c > 5 and kwota:
                 print(kwota, "banknot/y", "->", c, "zl")
-            if kwota:
-                print(kwota, "monata/ty", "->", c, "zl")
+            elif kwota:
+                print(kwota, "banknot/ty", "->", c, "zl")
 
         for kwota, c in zip(reszta_gr, gr):
             if kwota:
