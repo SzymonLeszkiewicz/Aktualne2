@@ -20,24 +20,33 @@ def ciag3(n):
 
 
 def ciag12(n):
-    x = 0
-    for i in range(n):
-        x = 3*x + 3
-    return x
+    # x = 0
+    # for i in range(n):
+    #     x = 3*x + 3
+    # return x
+    return sum([3 ** i for i in range(1, n + 1)])
 
 def ciag22(n):
     #element n-2 plus indeks
-    x = 0
-    y = 0
-    z = 1
-    for i in range(1, n+1):
-        z = x + i
-        x = y
-        y = z
-    return z
+    # x = 0
+    # y = 0
+    # z = 1
+    # for i in range(1, n+1):
+    #     z = x + i
+    #     x = y
+    #     y = z
+    # return z
+    if not n % 2 :
+        q = (n // 2 + 1)
+    else:
+        q = i(n + 1) // 2 + 1
+    return sum([n - 2 * (i - 1) for i in range(1, q)])
+
 
 def ciag32(n):
-    pass
+    x = (1 + 5 ** 0.5) / 2
+    y = (1 - 5 ** 0.5) / 2
+    return int(1 / (5 ** (1 / 2)) * (x ** n - y ** n))
 
 
 
@@ -51,9 +60,3 @@ def check(p, n, t1, t2):
             break
     return
 
-
-#check(1, 100, ciag2, ciag22)
-
-
-for i in range(2, 10):
-     print(i, ciag3(i), "======")
