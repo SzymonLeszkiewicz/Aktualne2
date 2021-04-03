@@ -2,3 +2,6 @@
 b2.py
 b3.py
 brudnopis.py
+*.xml
+*.iml
+.gitignore
