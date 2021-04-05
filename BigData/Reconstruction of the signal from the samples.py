@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import cvxpy
+import scipy.fftpack as spfft
 
 def make_signal(n, freqs):
     t = np.linspace(0, 1, n)
@@ -32,8 +33,26 @@ axs[0].set_title('signal + samples')
 axs[0].plot(x,y)
 axs[0].plot(x1, y1,'*')
 axs[0].legend(['signal','samples'])
-axs[1].set_title('si + connected samples')
+axs[1].set_title('si + naive representation')
 axs[1].plot(x,y)
 axs[1].plot(x1, y1)
 axs[1].legend(['signal','connected samples'])
+plt.show()
+
+def reconstruct(signal_sub, t_target):
+  n = t_target.size
+  A = spfft.idct(np.identity(n), norm = 'ortho', axis =0)
+  A = A[signal_sub['idx']]
+
+  vx = cvxpy.Variable(n)
+  cvxpy.Problem(objective=cvxpy.Minimize(cvxpy.norm(vx, 1)), constraints=[A@vx == signal_sub['y']]).solve()
+
+  x = np.array(vx.value)
+  return {'t': t_target, 'y': spfft.idct(x, norm='ortho', axis=0)}
+
+signal_rec = reconstruct(signal_sub, signal['t'])
+t1 = signal_rec['t']
+y1 = signal_rec['y']
+plt.plot(t1, y1)
+plt.plot(x, y)
 plt.show()
